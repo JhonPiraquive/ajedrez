@@ -21,20 +21,21 @@ class FichaFactory {
 
     crearProducto(fila, columna) {
         let tipo = this.obtenerTipo(fila, columna)
+        let color = this.getColor(fila)
 
         switch (tipo) {
             case 'torre':
-                return new Torre();
+                return new Torre(color);
             case 'caballo':
-                return new Caballo();
+                return new Caballo(color);
             case 'alfil':
-                return new Alfil();
+                return new Alfil(color);
             case 'reina':
-                return new Reina();
+                return new Reina(color);
             case 'rey':
-                return new Rey();
+                return new Rey(color);
             case 'peon':
-                return new Peon();
+                return new Peon(color);
         }
     }
 
@@ -42,6 +43,12 @@ class FichaFactory {
         return fila === 1 || fila === 6
             ? 'peon'
             : this.TIPOS[columna]
+    }
+
+    getColor(fila) {
+        return fila == 0 || fila == 1
+            ? 'negro'
+            : (fila == 6 || fila == 7 ? 'blanco' : null)
     }
 
     mover(fila, columna) {
