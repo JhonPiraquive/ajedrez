@@ -13,6 +13,10 @@ class Tablero {
         this.llenarCasillas()
     }
 
+    iniciarPartida() {
+        this.pintarFichas()
+    }
+
     llenarCasillas() {
         let fichaFactory = new FichaFactory()
 
@@ -28,6 +32,28 @@ class Tablero {
                 this.casillas.push(new Casilla(fila, columna, ficha))
             }
         }
+    }
+
+    pintarFichas() {
+        let casillasVisuales = document.getElementsByClassName('square')
+
+        for (let index = 0; index < casillasVisuales.length; index++) {
+            let casillaVisual = casillasVisuales[index]
+            let posX = casillaVisual.dataset.x
+            let posY = casillaVisual.dataset.y
+
+            let casillaLogica = this.getCasillaEnPosicion(posX, posY)
+
+            if (casillaLogica.ficha != null && casillaLogica.ficha != undefined) {   
+                casillaVisual.innerHTML = casillaLogica.ficha.getImagen()
+            }
+        }
+    }
+
+    getCasillaEnPosicion(posX, posY) {
+        return this.casillas.find((casilla) => {
+            return casilla.fila == posX && casilla.columna == posY
+        })
     }
 }
 
